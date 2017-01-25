@@ -1,0 +1,38 @@
+#!/bin/bash
+##########################Copy Right By Zhaowei#############################
+# Function:nagios send sms                                                 #
+# Version=v1                                                               #
+# Date=2015-05-06                                                          #
+############################################################################
+
+### load env
+#. /home/nagios/.bash_profile 
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+export PATH
+export LANG=en_US.UTF-8
+#############################################################################
+
+### help
+PROGNAME=`basename $0`
+PROGPATH=`echo $0 | sed -e 's,[\\/][^\\/][\\/]*$,,'`
+print_usage() {
+   echo "Usage:"
+   echo "/bin/sh $PROGNAME title contact"
+   exit 1
+   }
+if [ $# -ne 2 ]
+  then
+print_usage
+fi
+
+### varible
+ALARM_DATE=$(date +%Y-%m-%d" "%H:%M)
+TITLE=$1 
+CONTACT=$2
+USER="xxxxx"
+PW="yyyyy"
+URL="http://114.114.114.114/smsJson.aspx?"
+
+### curl 
+curl -s -d action=send -d account=${USER} -d password=${PW} -d mobile=${CONTACT}  -d content="${TITLE} ${ALARM_DATE}【公司签名】" "${URL}" && echo `date`>>/tmp/sns.txt 2>&1
+
