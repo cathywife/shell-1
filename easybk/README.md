@@ -15,7 +15,7 @@
 	#This is scripts Main Program 
 	main.sh
 
-	#Def backup hostname lists
+	#Def backup host lists
 	bk_ip_lists.sh
 
 	#Def variable
